@@ -37,7 +37,6 @@ function generateCharts(workouts) {
         exerciseCounts[workout.exercise] = (exerciseCounts[workout.exercise] || 0) + 1;
     });
 
-    // Tyhjennetään aiemmat kaaviot ennen uusien luomista
     if (workoutChartInstance) workoutChartInstance.destroy();
     if (exerciseChartInstance) exerciseChartInstance.destroy();
 
@@ -79,5 +78,4 @@ function generateCharts(workouts) {
     });
 }
 
-// Alustetaan kaaviot sivun latauksen yhteydessä
 generateCharts(JSON.parse(localStorage.getItem('workouts')) || []);
