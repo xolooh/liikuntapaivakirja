@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liikuntapäiväkirja</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <nav>
+        <a href="index.html">Etusivu</a>
+        <a href="stats.html">Tilastot</a>
+        <a href="about.html">Tietoa</a>
+    </nav>
+
+    <h1>Liikuntapäiväkirja</h1>
+    <form id="workout-form">
+        <label>Päivämäärä: <input type="date" id="date" required></label><br>
+        <label>Harjoitus: <input type="text" id="exercise" required></label><br>
+        <label>Kesto (min): <input type="number" id="duration" required></label><br>
+        <button type="submit">Lisää treeni</button>
+    </form>
+    
+    <h2>Treenihistoria</h2>
+    <div id="workout-list"></div>
+    <script src="js/workout-form-handler.js"></script>
+
+</body>
+</html>

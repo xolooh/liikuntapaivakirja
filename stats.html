@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilastot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Etusivu</a>
+        <a href="stats.html">Tilastot</a>
+        <a href="about.html">Tietoa</a>
+    </nav>
+    
+    <h1>Treeni Tilastot</h1>
+
+    <div class="filter-container">
+        <label for="start-date">Aloituspäivämäärä:</label>
+        <input type="date" id="start-date">
+        
+        <label for="end-date">Loppupäivämäärä:</label>
+        <input type="date" id="end-date">
+        
+        <button onclick="updateCharts()">Suodata</button>
+    </div>
+
+    <div class="stats-box">
+        <h2>Treenin Kesto (min)</h2>
+        <canvas id="workoutChart"></canvas>
+    </div>
+
+    <div class="stats-box">
+        <h2>Treenityypit</h2>
+        <canvas id="exerciseChart"></canvas>
+    </div>
+
+    <script src="js/workout-stats-charts.js"></script>
+
+
+</body>
+</html>
