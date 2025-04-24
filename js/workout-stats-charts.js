@@ -1,46 +1,58 @@
-let workoutChartInstance = null;
-let exerciseChartInstance = null;
+let workoutChartInstance = null
+let exerciseChartInstance = null
+
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date()
+    const endDate = today.toISOString().split('T')[0]
+    document.getElementById('end-date').value = endDate
+
+    const startDate = new Date(today)
+    startDate.setDate(today.getDate() - 7)
+    const startDateStr = startDate.toISOString().split('T')[0]
+    document.getElementById('start-date').value = startDateStr
+
+    updateCharts()
+})
 
 function updateCharts() {
-    const startDate = document.getElementById('start-date').value;
-    const endDate = document.getElementById('end-date').value;
+    const startDate = document.getElementById('start-date').value
+    const endDate = document.getElementById('end-date').value
 
-    const workouts = filterWorkouts(startDate, endDate);
-    generateCharts(workouts);
+    const workouts = filterWorkouts(startDate, endDate)
+    generateCharts(workouts)
 }
 
 function filterWorkouts(startDate, endDate) {
-    const workouts = JSON.parse(localStorage.getItem('workouts')) || [];
+    const workouts = JSON.parse(localStorage.getItem('workouts')) || []
 
     return workouts.filter(workout => {
-        if (!workout.date) return false;
+        if (!workout.date) return false
 
-        const workoutDate = new Date(workout.date);
-        const start = startDate ? new Date(startDate) : null;
-        const end = endDate ? new Date(endDate) : null;
+        const workoutDate = new Date(workout.date)
+        const start = startDate ? new Date(startDate) : null
+        const end = endDate ? new Date(endDate) : null
 
-        if (start && workoutDate < start) return false;
-        if (end && workoutDate > end) return false;
-
-        return true;
-    });
+        if (start && workoutDate < start) return false
+        if (end && workoutDate > end) return false
+        return true
+    })
 }
 
 function generateCharts(workouts) {
-    const labels = [];
-    const durations = [];
-    const exerciseCounts = {};
+    const labels = []
+    const durations = []
+    const exerciseCounts = {}
 
     workouts.forEach(workout => {
-        labels.push(workout.date);
-        durations.push(parseInt(workout.duration));
-        exerciseCounts[workout.exercise] = (exerciseCounts[workout.exercise] || 0) + 1;
-    });
+        labels.push(workout.date)
+        durations.push(parseInt(workout.duration))
+        exerciseCounts[workout.exercise] = (exerciseCounts[workout.exercise] || 0) + 1
+    })
 
-    if (workoutChartInstance) workoutChartInstance.destroy();
-    if (exerciseChartInstance) exerciseChartInstance.destroy();
+    if (workoutChartInstance) workoutChartInstance.destroy()
+    if (exerciseChartInstance) exerciseChartInstance.destroy()
 
-    const ctx1 = document.getElementById('workoutChart').getContext('2d');
+    const ctx1 = document.getElementById('workoutChart').getContext('2d')
     workoutChartInstance = new Chart(ctx1, {
         type: 'bar',
         data: {
@@ -59,9 +71,9 @@ function generateCharts(workouts) {
                 y: { beginAtZero: true }
             }
         }
-    });
+    })
 
-    const ctx2 = document.getElementById('exerciseChart').getContext('2d');
+    const ctx2 = document.getElementById('exerciseChart').getContext('2d')
     exerciseChartInstance = new Chart(ctx2, {
         type: 'pie',
         data: {
@@ -75,7 +87,7 @@ function generateCharts(workouts) {
         options: {
             responsive: true,
         }
-    });
+    })
 }
 
-generateCharts(JSON.parse(localStorage.getItem('workouts')) || []);
+generateCharts(JSON.parse(localStorage.getItem('workouts')) || [])
